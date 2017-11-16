@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css?family=Anonymous+Pro:300,400,700');
+
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  font-family: 'Anonymous Pro', Helvetica, sans-serif;
+  font-size: 18px;
+  background: #231F20;
+  color: #f5f4f4;
+  -webkit-font-smoothing: antialiased;
+  background-image: url('https://cdn.glitch.com/a5fb2598-c75f-42b8-8bef-e5252d4814b5%2Fbackground.svg?1510347487193');
+  background-repeat: repeat-y;
+  background-position: center top;
+  background-attachment: fixed;
+  background-size: 95% auto;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  color: #34ACE2;
+}
+
+img {
+  display: block;
+}
+
+header {
+  position: relative;
+  padding: 10px 0 0;
+  background: linear-gradient(135deg, #1D70A2, #6DAEDB);
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+}
+
+header h1 {
+  margin: 0;
+}
+
+.header__container {
+  position: relative;
+  z-index: 1;
+  width: 95%;
+  max-width: 1600px;
+  padding: 0 50px;
+  margin: 0 auto;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  margin-bottom: 35px;
+  padding: 10px 0;
+}
+
+.svg--spies {
+  position: relative;
+  bottom: -10px;
+  width: 85%;
+  max-height: 350px;
+  margin: 0 auto;
+  max-width: 1400px;
+}
+
+.logo-text {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.background {
+  background: #111;
+}
+
+.icon {
+  display: block;
+  margin-right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  border: 2px solid #fff;
+  transform: rotate(10deg);
+  box-shadow: 6px 6px 4px 0px rgba(0, 0, 0, 0.52);
+}
+
+.p--tiny {
+  font-size: 13px;
+}
+
+.button {
+  margin: 40px 0 25px;
+  display: inline-block;
+  box-shadow: 6px 6px 4px 0px rgba(0, 0, 0, 0.52);
+  border-radius: 7px;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 3.75rem 0;
+  width: 80%;
+  max-width: 680px;
+}
+
+.center {
+  text-align: center;
+  margin: 0 auto;
+}
+
+strong {
+  border-bottom: 1px solid currentColor;
+}
+
+h1,
+h2 {
+  text-align: center;
+} 
+
+h1 {
+  font-size: 2.5em
+}
+
+h2 {
+  margin: 0.3em;
+  font-size: 1.4em;
+  font-weight: 300;
+  line-height: 1.3;
+}
+
+h3 {
+  margin-top: 3.5rem;
+  font-size: 1.5em;
+}
+
+h4 {
+  margin: 1.7em 0 1em;
+  font-size: 1.13em;
+}
+
+p {
+  line-height: 1.85;
+}
+
+section h2 {
+  margin-bottom: 1em;
+  font-size: 2em;
+  font-weight: 400;
+}
+
+code {
+  border: 1px solid currentColor;
+  padding: 0.3em 0.5em;
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+.type-js {
+  position: relative;
+  display: inline-block;
+  height: 2.5rem;
+  margin: 0.3rem 0;
+}
+
+.text-js{
+  opacity: 0;
+}
+.cursor{
+  display: block;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  right: -5px;
+  width: 2px;
+  background-color: white;
+  z-index: 1;
+  animation: flash 0.5s none infinite alternate;
+}
+@keyframes flash{
+  0%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
