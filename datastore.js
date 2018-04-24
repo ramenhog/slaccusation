@@ -29,6 +29,13 @@ function getState(channelId) {
   return promisify((cb) => db.findOne({_id}, cb));
 }
 
+function storeMessage(message, details) {
+  const _id = `message:${message.message_ts}`;
+  const db = getDb();
+  console.log('storeMessage', message, details);
+  // return promisify((cb) => db.update({_id}, details, {upsert: true}, cb));
+}
+
 module.exports = {
   getState,
   storeState

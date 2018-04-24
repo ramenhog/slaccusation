@@ -295,7 +295,7 @@ function getMessageAction(message, spy, location) {
   }
   
   if (spy && messageText.toLowerCase().indexOf('accuse') > -1) {
-    if (message.user_name === spy.user.name && messageText.toLowerCase().indexOf(spy.user.name.toLowerCase()) > -1) {
+    if (message.user_name === messageText.split("accuse ").pop() && messageText.toLowerCase().indexOf(spy.user.name.toLowerCase()) > -1) {
       return {
         type: "ERROR_SPY_GUESS_SELF"
       };
@@ -368,9 +368,9 @@ function handleMessage(bot, message, state={}) {
     case "ERROR_NON_SPY_GUESS_LOCATION":
       translator.errorNonSpyAttemptGuessLocation();
       break;
-    case "ERROR_SPY_GUESS_SELF":
-      translator.errorSpyGuessSelf();
-      break;
+    //case "ERROR_SPY_GUESS_SELF":
+    //  translator.errorSpyGuessSelf();
+    //  break;
     case "ERROR_NO_SPY_GUESS":
       translator.errorNoSpyGuess();
       break;
@@ -402,32 +402,25 @@ function handleInteractiveMessage(bot, message, state) {
     const reply = message.original_message;
 
     const person = '<@' + message.user + '>';
-    let yesAttachments = reply.attachments[1];
-    let noAttachments = reply.attachments[2];
-    if ((!!yesAttachments.text &&  yesAttachments.text.indexOf(person) > -1) || (!!noAttachments.text && noAttachments.text.indexOf(person) > -1)) return;
-
-    if (message.actions[0].name === 'yes') {
-      const supporters = yesAttachments.text ? yesAttachments.text.split(', ') : [];
-      supporters.push(person);
-      if (players.length === supporters.length) {
-
-        const translator = new MessageTranslator(bot, message);
-        if (reply.attachments[0].title.toLowerCase().indexOf(spy.user.name.toLowerCase()) > -1) {
-          translator.accusedSuccessfully(spy, location);
-        } else {
-          translator.accusedIncorrectly(spy, location);
-        }
-        return endGame(message);
+    const yesAttachments = reply.attachments[1].text ? reply.attachments[1].text.split(', ') : [];
+    let yesVotes = yesAttachments.filter(user => user !== person);
+    const noAttachments = reply.attachments[2].text ? reply.attachments[2].text.split(', ') : [];
+    let noVotes = noAttachments.filter(user => user !== person);
+    
+    const supporters = message.actions[0].name === 'yes' ? yesVotes : noVotes;
+    supporters.push(person);
+    if (message.actions[0].name === 'yes' && players.length === supporters.length) {
+      const translator = new MessageTranslator(bot, message);
+      if (reply.attachments[0].title.split("accused ").pop().toLowerCase().indexOf(spy.user.name.toLowerCase()) > -1) {
+        translator.accusedSuccessfully(spy, location);
       } else {
-        yesAttachments.text = supporters.join(', ');
+        translator.accusedIncorrectly(spy, location);
       }
+      return endGame(message);
     } else {
-      const supporters = noAttachments.text ? noAttachments.text.split(', ') : [];
-      supporters.push(person);
-      console.log('no supporters', supporters);
-      noAttachments.text = supporters.join(', ');
+      reply.attachments[(message.actions[0].name === 'yes' ? 1 : 2)].text = supporters.join(', ');
+      reply.attachments[(message.actions[0].name === 'yes' ? 2 : 1)].text = (message.actions[0].name === 'yes' ? noVotes : yesVotes).join(', ');
     }
-
     bot.replyInteractive(message, reply);
    }
 }
